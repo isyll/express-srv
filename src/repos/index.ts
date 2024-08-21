@@ -1,4 +1,4 @@
-import EnvVars from '@src/common/EnvVars'
+import EnvVars from '@/common/EnvVars'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import { Pool } from 'pg'
 

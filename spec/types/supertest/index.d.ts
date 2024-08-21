@@ -1,4 +1,4 @@
-import { IUser } from '@src/models/User'
+import { IUser } from '@/models/User'
 import 'supertest'
 
 declare module 'supertest' {

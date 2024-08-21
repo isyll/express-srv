@@ -1,5 +1,5 @@
-import HttpStatusCodes from '@src/common/HttpStatusCodes'
-import UserService from '@src/services/UserService'
+import HttpStatusCodes from '@/common/HttpStatusCodes'
+import UserService from '@/services/UserService'
 import { Request, Response } from 'express'
 
 // **** Functions **** //

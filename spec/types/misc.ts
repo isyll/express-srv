@@ -1,6 +1,6 @@
 import { Response } from 'supertest'
 
-import { IUser } from '@src/models/User'
+import { IUser } from '@/models/User'
 
 // Misc
 export type TReqBody = Record<string, unknown>

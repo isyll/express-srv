@@ -4,6 +4,6 @@
 
 import jetPaths from 'jet-paths'
 
-import Paths from '@src/common/Paths'
+import Paths from '@/common/Paths'
 
 export default jetPaths(Paths)

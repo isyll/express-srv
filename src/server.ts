@@ -10,12 +10,12 @@ import logger from 'jet-logger'
 
 import 'express-async-errors'
 
-import BaseRouter from '@src/routes'
+import BaseRouter from '@/routes'
 
-import Paths from '@src/common/Paths'
-import EnvVars from '@src/common/EnvVars'
-import HttpStatusCodes from '@src/common/HttpStatusCodes'
-import { NodeEnvs } from '@src/common/misc'
+import Paths from '@/common/Paths'
+import EnvVars from '@/common/EnvVars'
+import HttpStatusCodes from '@/common/HttpStatusCodes'
+import { NodeEnvs } from '@/common/misc'
 import compression from 'compression'
 
 // **** Variables **** //

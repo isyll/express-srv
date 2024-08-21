@@ -1,6 +1,6 @@
 // **** Variables **** //
 
-import { createUser, getUsers, insertUserSchema, User } from '@src/repos/users'
+import { createUser, getUsers, insertUserSchema, User } from '@/repos/users'
 import { ZodError } from 'zod'
 
 export const USER_NOT_FOUND_ERR = 'User not found'
