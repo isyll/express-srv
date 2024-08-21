@@ -15,7 +15,6 @@ import BaseRouter from '@src/routes'
 import Paths from '@src/common/Paths'
 import EnvVars from '@src/common/EnvVars'
 import HttpStatusCodes from '@src/common/HttpStatusCodes'
-import { RouteError } from '@src/common/classes'
 import { NodeEnvs } from '@src/common/misc'
 import compression from 'compression'
 
@@ -57,27 +56,9 @@ app.use(
       logger.err(err, true)
     }
     let status = HttpStatusCodes.BAD_REQUEST
-    if (err instanceof RouteError) {
-      status = err.status
-    }
     return res.status(status).json({ error: err.message })
   },
 )
-
-// **** Front-End Content **** //
-
-// Set views directory (html)
-// const viewsDir = path.join(__dirname, 'views')
-// app.set('views', viewsDir)
-
-// Set static directory (js and css).
-// const staticDir = path.join(__dirname, 'public')
-// app.use(express.static(staticDir))
-
-// Nav to users pg by default
-app.get('/', (_: Request, res: Response) => {
-  return res.redirect('/users')
-})
 
 // **** Export default **** //
 
