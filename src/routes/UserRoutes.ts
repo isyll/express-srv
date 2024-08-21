@@ -9,7 +9,7 @@ import { Request, Response } from 'express'
  */
 async function getAll(_: Request, res: Response) {
   const users = await UserService.getAll()
-  return res.status(HttpStatusCodes.OK).json({ users })
+  return res.status(HttpStatusCodes.OK).json({ data: users })
 }
 
 async function addOne(req: Request, res: Response) {
