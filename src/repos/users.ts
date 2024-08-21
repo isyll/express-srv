@@ -36,6 +36,8 @@ export const getUsers = async () =>
     .from(users)
 
 export const createUser = async (newUser: NewUser) => {
+  'id' in newUser && delete newUser.id
+
   return await db.insert(users).values(newUser).returning({
     id: users.id,
     name: users.name,
