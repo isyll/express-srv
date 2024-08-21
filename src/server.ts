@@ -17,6 +17,7 @@ import EnvVars from '@/common/EnvVars'
 import HttpStatusCodes from '@/common/HttpStatusCodes'
 import { NodeEnvs } from '@/common/misc'
 import compression from 'compression'
+import { ConflictErr } from './common/classes'
 
 // **** Variables **** //
 
@@ -56,9 +57,24 @@ app.use(
       logger.err(err, true)
     }
     let status = HttpStatusCodes.BAD_REQUEST
-    return res.status(status).json({ error: err.message })
+    if (err instanceof ConflictErr) {
+      status = err.status
+      err.message = `the field '${err.message}' already exists`
+    }
+
+    const json = parseJson(err.message)
+
+    return res.status(status).json({ error: !!json ? json : err.message })
   },
 )
+
+function parseJson(str: string) {
+  try {
+    return JSON.parse(str)
+  } catch (e) {
+    return null
+  }
+}
 
 // **** Export default **** //
 

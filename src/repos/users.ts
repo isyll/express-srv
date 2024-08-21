@@ -4,7 +4,7 @@ import { db } from '.'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
 
-export const users = pgTable('users', {
+const users = pgTable('users', {
   id: serial('id').primaryKey(),
   username: text('username').notNull().unique(),
   name: text('name').notNull(),
@@ -19,13 +19,13 @@ export const insertUserSchema = createInsertSchema(users, {
     .min(5)
     .regex(/^[a-zA-Z0-9]+$/)
     .max(32),
-  email: z.string().email(),
+  email: z.string().email('email invalide'),
 })
 
 export type User = z.infer<typeof selectUserSchema>
 export type NewUser = z.infer<typeof insertUserSchema>
 
-export const getUsers = async () =>
+const getUsers = async () =>
   await db
     .select({
       id: users.id,
@@ -35,7 +35,13 @@ export const getUsers = async () =>
     })
     .from(users)
 
-export const createUser = async (newUser: NewUser) => {
+const getUserByEmail = async (email: string) =>
+  await db.select().from(users).where(eq(users.email, email))
+
+const getUserByUsername = async (username: string) =>
+  await db.select().from(users).where(eq(users.username, username))
+
+const createUser = async (newUser: NewUser) => {
   'id' in newUser && delete newUser.id
 
   return await db.insert(users).values(newUser).returning({
@@ -46,10 +52,18 @@ export const createUser = async (newUser: NewUser) => {
   })
 }
 
-export const updateUser = async (id: number, updatedUser: User) =>
+const updateUser = async (id: number, updatedUser: User) =>
   await db.update(users).set(updatedUser).where(eq(users.id, id)).returning({
     id: users.id,
     name: users.name,
     username: users.username,
     email: users.email,
   })
+
+export default {
+  getUsers,
+  createUser,
+  updateUser,
+  getUserByEmail,
+  getUserByUsername,
+} as const

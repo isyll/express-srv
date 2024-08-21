@@ -14,13 +14,9 @@ async function getAll(_: Request, res: Response) {
 
 async function addOne(req: Request, res: Response) {
   const result = await UserService.addOne(req.body)
-  if (typeof result === 'string') {
-    return res
-      .status(HttpStatusCodes.BAD_REQUEST)
-      .json({ error: JSON.parse(result) })
-  }
-  return res.status(HttpStatusCodes.CREATED).json({ result })
+  return res.status(HttpStatusCodes.BAD_REQUEST).json({ ...result })
 }
+
 
 // **** Export default **** //
 
